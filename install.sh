@@ -241,6 +241,7 @@ F_mail_fw (){
 	#/sbin/iptables  -A INPUT  -m tcp -p tcp --dport 8080                  -j ACCEPT
 	# rspamd
 	/sbin/iptables   -A INPUT  -m tcp -p tcp --dport 11334                  -j ACCEPT
+	/sbin/iptables   -A INPUT  -m udp -p udp --dport 11335                  -j ACCEPT
 	# save
 	iptables-save -f /etc/iptables/rules.v4
 }

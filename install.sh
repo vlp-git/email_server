@@ -508,6 +508,7 @@ F_mail_postfix() {
 	echo "/^X-Originating-IP:/    IGNORE" >> "$cleanheader"
 	echo "/^X-Mailer:/            IGNORE" >> "$cleanheader"
 	echo "/^User-Agent:/          IGNORE" >> "$cleanheader"
+	echo "/Message-Id:\s+<(.*?)@.*?>/ REPLACE Message-Id: <\$1@"$email">" >> "$cleanheader"
 	postconf -e "header_checks = regexp:$cleanheader"
 	postconf -e "mime_header_checks = regexp:$cleanheader"
 	#### Configuration rspamd

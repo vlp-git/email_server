@@ -6,6 +6,6 @@ header :contains ["X-Spam"] "Yes",
 header :contains ["Subject"] "*** SPAM ***"  
 )  
 {
-fileinto :create "Spam";  
+fileinto :create "Junk";  
 stop;  
 }

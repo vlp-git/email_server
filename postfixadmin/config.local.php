@@ -1,7 +1,7 @@
 <?php
 $CONF['configured'] = true;
 $CONF['fetchmail'] = 'NO';
-$CONF['default_aliases'] = '';
+$CONF['default_aliases'] = array();
 $CONF['show_footer_text'] = 'NO';
 $CONF['quota'] = 'YES';
 $CONF['domain_quota'] = 'YES';

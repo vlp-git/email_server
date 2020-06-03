@@ -7,7 +7,7 @@
 * filters: sieve
 * database: mariadb
 * GUI mail manager: postfixadmin (pa)
-* webmail: rainloop
+* webmail:  rainloop
 
 ## Specs VM
 

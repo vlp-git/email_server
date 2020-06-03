@@ -588,8 +588,7 @@ F_mail_dovecot() {
 	############ 10-mail.conf
 	mailconf="/etc/dovecot/conf.d/10-mail.conf"
 	F_uncomment "$mailconf" "mail_plugins ="
-	F_appconf "$mailconf" "mail_plugins" "quota" -f
-	F_appconf "$mailconf" "mail_location" "maildir:/var/mail/vmail/%d/%n/Maildir" -f
+	F_appconf "$mailconf" "mail_plugins" "quota virtual" -f
 	F_uncomment "$mailconf" "mail_uid ="
 	F_appconf "$mailconf" "mail_uid" "vmail" -f
 	F_uncomment "$mailconf" "mail_gid ="
@@ -630,13 +629,23 @@ F_mail_dovecot() {
 	mbconf="/etc/dovecot/conf.d/15-mailboxes.conf"
 	F_recreate_file "$mbconf"
 	echo -e "namespace inbox {" >> "$mbconf"
+	echo -e "location = maildir:/var/mail/vmail/%d/%n/" >> "$mbconf"
+	echo -e "inbox = yes" >> "$mbconf"
 	echo -e "separator = /" >> "$mbconf"
+	echo -e "subscriptions = yes" >> "$mbconf"
 	echo -e "mailbox Drafts {\nauto = subscribe\nspecial_use = \\Drafts\n}" >> "$mbconf"
 	echo -e "mailbox Junk {\nauto = subscribe\nspecial_use = \\Junk\n}" >> "$mbconf"
 	echo -e "mailbox Trash {\nauto = subscribe\nspecial_use = \\Trash\n}" >> "$mbconf"
 	echo -e "mailbox Sent {\nauto = subscribe\nspecial_use = \\Sent\n}" >> "$mbconf"
 	echo -e "mailbox Archive {\nauto = subscribe\nspecial_use = \\Archive\n}" >> "$mbconf"
 	echo -e "}" >> "$mbconf"
+        echo -e "namespace virtual_inbox {" >> "$mbconf"
+        echo -e "location = maildir:/var/mail/vmail/%d/%n/Virtual" >> "$mbconf"
+        echo -e "prefix = Virtual/" >> "$mbconf"
+        echo -e "separator = /" >> "$mbconf"
+        echo -e "mailbox Flagged {\nspecial_use = \\Flagged\n}" >> "$mbconf"
+        echo -e "mailbox All {\nspecial_use = \\All\n}" >> "$mbconf"
+        echo -e "}" >> "$mbconf"
 	############ 20-imap.conf - le quota des boites mails
 	imapconf="/etc/dovecot/conf.d/20-imap.conf"
 	F_recreate_file "$imapconf"

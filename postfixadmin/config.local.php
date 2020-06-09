@@ -33,6 +33,9 @@ $CONF['smtp_server'] = 'smtp_server';
 $CONF['smtp_client'] = 'smtp_client';
 $CONF['smtp_port'] = '587';
 $CONF['smtp_sendmail_tls'] = 'YES';
+// Parameters: (1) username (2) domain (3) maildir (4) quota
+// $CONF['mailbox_postcreation_script']='sudo -u courier /usr/local/bin/postfixadmin-mailbox-postcreation.sh';
+$CONF['mailbox_postcreation_script'] = '/usr/local/bin/postfixadmin-mailbox-postcreation.sh'
 $CONF['forgotten_user_password_reset'] = true;
 $CONF['welcome_text'] = <<<EOM
 Hi,

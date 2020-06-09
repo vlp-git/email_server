@@ -744,6 +744,8 @@ F_web_postfixadmin_ini() {
 	postfixadmin-cli mailbox add $admin_pa_user@$email --password $admin_pa_passwd --password2 $admin_pa_passwd --name $admin_pa_user --quota 1024 > /dev/null 2>&1
 	echo "Création de la redirection de abuse@$email vers $admin_pa_user@$email"
 	postfixadmin-cli alias add abuse@$email add --goto $admin_pa_user@$email > /dev/null 2>&1
+	# copie du script de post creation de mailbox
+	cp ./postfixadmin/postfixadmin-mailbox-postcreation.sh /usr/local/bin/
 }
 
 F_web_apache_config() {

@@ -639,13 +639,6 @@ F_mail_dovecot() {
 	echo -e "mailbox Sent {\nauto = subscribe\nspecial_use = \\Sent\n}" >> "$mbconf"
 	echo -e "mailbox Archive {\nauto = subscribe\nspecial_use = \\Archive\n}" >> "$mbconf"
 	echo -e "}" >> "$mbconf"
-        echo -e "namespace virtual_inbox {" >> "$mbconf"
-        echo -e "location = maildir:/var/mail/vmail/%d/%n/Virtual" >> "$mbconf"
-        echo -e "prefix = Virtual/" >> "$mbconf"
-        echo -e "separator = /" >> "$mbconf"
-        echo -e "mailbox Flagged {\nspecial_use = \\Flagged\n}" >> "$mbconf"
-        echo -e "mailbox All {\nspecial_use = \\All\n}" >> "$mbconf"
-        echo -e "}" >> "$mbconf"
 	############ 20-imap.conf - le quota des boites mails
 	imapconf="/etc/dovecot/conf.d/20-imap.conf"
 	F_recreate_file "$imapconf"
@@ -746,6 +739,8 @@ F_web_postfixadmin_ini() {
 	postfixadmin-cli alias add abuse@$email add --goto $admin_pa_user@$email > /dev/null 2>&1
 	# copie du script de post creation de mailbox
 	cp ./postfixadmin/postfixadmin-mailbox-postcreation.sh /usr/local/bin/
+	chown www-data:www-data /usr/local/bin/postfixadmin-mailbox-postcreation.sh
+	chmod +x /usr/local/bin/postfixadmin-mailbox-postcreation.sh
 }
 
 F_web_apache_config() {

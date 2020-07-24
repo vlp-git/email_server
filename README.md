@@ -24,7 +24,7 @@
 * Par default, le compte postmaster est crée avec son login:password configurés dans config.js
 * les users ont accès à leur page d'admin pour gérer leurs pass: https://postfixadmin.fdn.frusers/login.php
 
-## Création de boiteis email
+## Création de boites email
 
 les utilisateurs souhaitant une adresse email devront écrire à service@fdn.fr en fournissant:
 

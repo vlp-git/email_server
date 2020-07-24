@@ -41,6 +41,9 @@ Il est possible de configurer le serveur comme serveur MX secondaire.
 Les utilisateurs envoie à services@fdn.fr avec:
 * le domaine du mail
 
+Il faudra faire pointer le MX secondaire sur:
+* mx.fdn.fr
+
 Postmaster entre ces informations dans Domain List>New Domain en cochant MX Backup
 
 ## Créations des boites mails par liste

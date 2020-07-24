@@ -491,6 +491,7 @@ F_mail_postfix() {
 	postconf -e "postscreen_dnsbl_threshold = 3"
 	postconf -e "postscreen_dnsbl_action = drop"
 	postconf -e "postscreen_greet_wait = 3s"
+	postconf -e "maximal_queue_lifetime = 21d"
 	postconf -e "postscreen_greet_banner = wait, wait, wait !"
 	postconf -e "postscreen_greet_action = enforce"
 	postconf -e "postscreen_pipelining_enable = yes"

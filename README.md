@@ -44,7 +44,10 @@ Les utilisateurs envoie à services@fdn.fr avec:
 Il faudra faire pointer le MX secondaire sur:
 * mx.fdn.fr
 
-Postmaster entre ces informations dans Domain List>New Domain en cochant MX Backup
+Postmaster entre ces informations dans Domain List>New Domain:
+* Dans la desctiption mettre backup_NomDomaine
+* Mettre -1 dans tous les champs
+* Cocher MX Backup
 
 ## Créations des boites mails par liste
 

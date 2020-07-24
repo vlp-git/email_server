@@ -9,42 +9,6 @@
 * GUI mail manager: postfixadmin (pa)
 * webmail: rainloop
 
-## Specs VM
-
-1. mail_domain.tld:
-  * Core: 2
-  * RAM 4GB
-  * Hard Drive: 500GB
-2. webmail_domain.tld:
-  * Core: 2
-  * RAM: 4GB
-  * Hard Drive: 15GB
-
-## Préparation
-
-* Soit ipV4 mail: A.B.C.D
-* Soit ipV4 webmail: W.X.Y.Z
-
-```
-D.C.B.A.in-addr.arpa	IN	PTR		mail_domain.tld.
-Z.Y.X.W.in-addr.arpa	IN	PTR		webmail_domain.tld.
-mail			IN	A		ipV4_vm_mail
-			IN	AAAA		ipV6_vm_mail
-			IN	MX	10	mail
-			IN 	TXT 		"v=spf1 ip4:ipV4_vm_mail ip6:ipV6_vm_mail mx -all"
-[selector]._domainkey 	IN 	TXT 		"v=DKIM1; k=rsa; p=public_key_generated_by_rspamd"
-## L'entrée dkim est générée par rspamd dans: /var/lib/rspamd/dkim/dkim.mail_domain.tld.pub
-_dmarc.domain.tld. 	IN 	TXT 		"v=DMARC1; p=none; rua=mailto:postmaster@domain.tld; ruf=mailto:postmaster@domain.tld"
-webmail			IN	A		ipV4_vm_webmail
-			IN	AAAA		ipV6_vm_webmail
-postfixadmin		IN	A		ipV4_vm_webmail
-			IN	AAAA		ipV6_vm_webmail
-```
-
-## Firewall
-
-Par default, bloquer tous les ports et préciser dans config.json le port ssh en place.
-
 ## Installation
 
 * Les scripts doivent tourner en root: soit passer en root: `sudo -i`, soit lancer sudo ./install - Dans les 2 cas, les 2 scripts doivent être déployés sous le même user
@@ -56,17 +20,28 @@ Par default, bloquer tous les ports et préciser dans config.json le port ssh en
 
 ## Utilisation
 
-* L'interface d'administration se trouve sur postfixadmin.domain.tld
+* L'interface d'administration se trouve sur postfixadmin.fdn.fr
 * Par default, le compte postmaster est crée avec son login:password configurés dans config.js
-* les users ont accès à leur page d'admin pour gérer leurs pass: https://postfixadmin.domain.tld/users/login.php
+* les users ont accès à leur page d'admin pour gérer leurs pass: https://postfixadmin.fdn.frusers/login.php
 
-## Création de boite email
+## Création de boiteis email
 
-les utilisateurs souhaitant une adresse email devront écrire à postmaster@domain.tld en fournissant:
+les utilisateurs souhaitant une adresse email devront écrire à service@fdn.fr en fournissant:
 
 * pseudo
 * (facultatif) email de secours pour mot de passe oublié
 * le mot de passe temporaire sera: pseudo123 et le lien pour changer le mot de passe sera indiqué dans le welcome email envoyé lors de la création du compte
+
+Postmaster entre ces informations dans pfa>Virtual Liste>Add Mailbox
+
+## Création d'un MX secondaire
+
+Il est possible de configurer le serveur comme serveur MX secondaire.
+
+Les utilisateurs envoie à services@fdn.fr avec:
+* le domaine du mail
+
+Postmaster entre ces informations dans Domain List>New Domain en cochant MX Backup
 
 ## Créations des boites mails par liste
 
@@ -81,7 +56,7 @@ Le lien pour changer de mot de passe se trouve dans le welcome email.
 ## Filtres niveau serveur
 
 * Sieve a été activé sur le serveur pour permettre la mise en place de filtres directement au niveau du server. Accessible en TLS à travers le port 4190 sur mail_domain.tld
-* Il est possible de gérer les filtres via l'interface web: webmail_domain.tld
+* Il est possible de gérer les filtres via l'interface web: webmail.fdn.fr
 * Pour les version de Thunderbird < 68, il existe un addon
 * Pour les version de Thunderbird >= 68, le projet évolue ici: https://github.com/thsmi/sieve
 * Il existe aussi des applications standalon pour la création des filtres
@@ -146,5 +121,3 @@ Cependant, pour rainloop des bugs sont présents et patch a été développé:
 
 * https://www.fdn.fr
 * https://git.fdn.fr/adminsys/new_fdn_emails
-* https://framagit.org/thomascriscione/mail-server-installation-script
-* https://github.com/vlp-git/mail-server-installation-script

@@ -71,7 +71,11 @@ F_import_imap () {
 }
 F_add_dkim_keys () {
     #rspamadm dkim_keygen -s "$selector" -d "$ndd" -t ed25519 -k /var/lib/rspamd/dkim/"$selector"-ed25519.key > /var/lib/rspamd/dkim/"$selector"-ed25519.pub
+    echo "$ndd $selector" >> /etc/rspamd/dkim_selectors.map
+    echo "$ndd /var/lib/rspamd/dkim/${selector}.osteo04.fr.key" >> /etc/rspamd/dkim_paths.map
     rspamadm dkim_keygen -s "$selector" -d "$ndd" -b 2048 -k /var/lib/rspamd/dkim/"$selector"."$ndd".key > /var/lib/rspamd/dkim/"$selector"."$ndd".pub
+    chmod u=rw,g=r,o= /var/lib/rspamd/dkim/*
+    chown _rspamd /var/lib/rspamd/dkim/*
 }
 F_rainloop_grant_use () {
     test -f /etc/rainloop/domains/${ndd}.ini || \

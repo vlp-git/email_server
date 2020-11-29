@@ -7,6 +7,7 @@ F_var () {
     descri="Ce que tu veux"
     yuser="mlrx"
     workdir="/home/$yuser/pfa_cli/$ndd/"
+    selector="fdn" # dkim
     fichbox="${workdir}address" #  (1/ligne)
     fichalias="${workdir}alias" # (alias@domain.tld,user@domain.tld 1/ligne)
     today=$(date +%Y%m%d)
@@ -68,9 +69,10 @@ F_import_imap () {
                     --noerrorsdump --logfile ${today}_imapsync_${username[$i]}.log
     done
 }
-# F_add_dkim_keys () {
-# # dkim
-# }
+F_add_dkim_keys () {
+    #rspamadm dkim_keygen -s "$selector" -d "$ndd" -t ed25519 -k /var/lib/rspamd/dkim/"$selector"-ed25519.key > /var/lib/rspamd/dkim/"$selector"-ed25519.pub
+    rspamadm dkim_keygen -s "$selector" -d "$ndd" -b 2048 -k /var/lib/rspamd/dkim/"$selector"."$ndd".key > /var/lib/rspamd/dkim/"$selector"."$ndd".pub
+}
 F_rainloop_grant_use () {
     test -f /etc/rainloop/domains/${ndd}.ini || \
         cp -vf /etc/rainloop/domains/new-mail.fdn.fr.ini /etc/rainloop/domains/${ndd}.ini

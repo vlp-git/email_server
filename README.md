@@ -22,7 +22,7 @@
 
 * L'interface d'administration se trouve sur postfixadmin.fdn.fr
 * Par default, le compte postmaster est crée avec son login:password configurés dans config.js
-* les users ont accès à leur page d'admin pour gérer leurs pass: https://postfixadmin.fdn.frusers/login.php
+* les users ont accès à leur page d'admin pour gérer leurs pass: https://postfixadmin.fdn.fr/users/login.php
 
 ## Création de boites email
 

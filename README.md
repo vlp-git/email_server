@@ -18,6 +18,25 @@
 * Choisir, en fonction de la VM, l'installation serveur email ou du serveur web
 * Le serveur email devra être installé avant le serveur web
 
+## Générer les certifs dkim
+
+###Process DKIM pour sous domaine ou domaine extérieur
+1. Ajouter domaine et selector dans dans /etc/rspamd/dkim_selectors.map
+2. Ajouter domaine dans /etc/rspamd/dkim_paths.map
+3. rspamadm dkim_keygen -b 2048 -s mySelector -d myDomaine.fdn.fr -k /var/lib/rspamd/dkim/mySelecftor.myDomaine.fdn.fr.key > /var/lib/rspamd/dkim/mySelector.myDomaine.fdn.fr.pub
+4. chmod u=rw,g=r,o= /var/lib/rspamd/dkim/*
+5. chown _rspamd /var/lib/rspamd/dkim/*
+6. systemctl restart rspamd
+
+###Entrées DNS à ajouter:
+
+			IN	MX 10	mx.fdn.fr.
+			IN  TXT     "v=spf1 ip4:80.67.169.77 ip6:2001:910:800::77 mx -all"
+_dmarc			IN 	TXT 	"v=DMARC1; p=none; rua=mailto:postmaster@myDomaine.fdn.fr; ruf=mailto:postmaster@myDomaine.fdn.fr"
+mySelector._domainkey 	IN 	TXT ( "v=DKIM1; k=rsa; "mypublickey_a_retrouver_dans_var_lib_rspamd_dkim"
+) ;
+
+
 ## Utilisation
 
 * L'interface d'administration se trouve sur postfixadmin.fdn.fr

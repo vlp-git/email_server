@@ -30,11 +30,10 @@
 
 ###Entrées DNS à ajouter:
 
-			IN	MX 10	mx.fdn.fr.
-			IN  TXT     "v=spf1 ip4:80.67.169.77 ip6:2001:910:800::77 mx -all"
-_dmarc			IN 	TXT 	"v=DMARC1; p=none; rua=mailto:postmaster@myDomaine.fdn.fr; ruf=mailto:postmaster@myDomaine.fdn.fr"
-mySelector._domainkey 	IN 	TXT ( "v=DKIM1; k=rsa; "mypublickey_a_retrouver_dans_var_lib_rspamd_dkim"
-) ;
+						IN	MX 10	mx.fdn.fr.
+						IN  TXT     "v=spf1 ip4:80.67.169.77 ip6:2001:910:800::77 mx -all"
+			_dmarc			IN 	TXT 	"v=DMARC1; p=none; rua=mailto:postmaster@myDomaine.fdn.fr; ruf=mailto:postmaster@myDomaine.fdn.fr"
+			mySelector._domainkey 	IN 	TXT ( "v=DKIM1; k=rsa; "mypublickey_a_retrouver_dans_var_lib_rspamd_dkim") ;
 
 
 ## Utilisation

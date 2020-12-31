@@ -20,7 +20,7 @@
 
 ## Générer les certifs dkim
 
-###Process DKIM pour sous domaine ou domaine extérieur
+### Process DKIM pour sous domaine ou domaine extérieur
 1. Ajouter domaine et selector dans dans /etc/rspamd/dkim_selectors.map
 2. Ajouter domaine dans /etc/rspamd/dkim_paths.map
 3. rspamadm dkim_keygen -b 2048 -s mySelector -d myDomaine.fdn.fr -k /var/lib/rspamd/dkim/mySelecftor.myDomaine.fdn.fr.key > /var/lib/rspamd/dkim/mySelector.myDomaine.fdn.fr.pub

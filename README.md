@@ -28,7 +28,7 @@
 5. chown _rspamd /var/lib/rspamd/dkim/*
 6. systemctl restart rspamd
 
-###Entrées DNS à ajouter:
+### Entrées DNS à ajouter:
 
 						IN	MX 10	mx.fdn.fr.
 						IN  TXT     "v=spf1 ip4:80.67.169.77 ip6:2001:910:800::77 mx -all"

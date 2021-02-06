@@ -1,6 +1,6 @@
 # Serveur email FDN 2020
 
-## Structure
+##i# Structure
 * MTA: postifx
 * IMAP: dovecot
 * spam: postscreen + rspamd
@@ -9,7 +9,9 @@
 * GUI mail manager: postfixadmin (pa)
 * webmail: rainloop
 
-## Installation
+## Administration
+
+### Installation
 
 * Les scripts doivent tourner en root: soit passer en root: `sudo -i`, soit lancer sudo ./install - Dans les 2 cas, les 2 scripts doivent être déployés sous le même user
 * `git clone git@git.fdn.fr:adminsys/new_fdn_emails.git`
@@ -18,11 +20,9 @@
 * Choisir, en fonction de la VM, l'installation serveur email ou du serveur web
 * Le serveur email devra être installé avant le serveur web
 
+### Configurer un nouveau domaine un nouveau sous-domain ou domaine extérieur:
 
-
-## Créer un nouveau domain:
-
-### Créer le domaine dans postfix admin
+#### Créer le domaine dans postfix admin
  * postfixadmin.fdn.fr > new domaine
  * Par default: 
   * alias: unlimited
@@ -30,7 +30,7 @@
   * Mailbox Quota: 5120
   * Domain Quota: 20480
 
-### Générer les clefs DKIM
+#### Générer les clefs DKIM
 1. Ajouter domaine et selector dans dans /etc/rspamd/dkim_selectors.map
   * Format: "[domaine] [selector]"
   * Par default: mettre "fdn" pour le selector
@@ -43,7 +43,7 @@
 5. chown _rspamd /var/lib/rspamd/dkim/*
 6. systemctl restart rspamd
 
-### Entrées DNS à ajouter:
+#### Entrées DNS à ajouter:
 
 						IN	MX 10	mx.fdn.fr.
 						IN  	TXT     "v=spf1 ip4:80.67.169.77 ip6:2001:910:800::77 mx -all"
@@ -51,13 +51,19 @@
 			mySelector._domainkey 	IN 	TXT 	( "v=DKIM1; k=rsa; "mypublickey_a_retrouver_dans_var_lib_rspamd_dkim") ;
 
 
-## Utilisation
+### Créer une nouvelle adresse mail
 
-* L'interface d'administration se trouve sur postfixadmin.fdn.fr
-* Par default, le compte postmaster est crée avec son login:password configurés dans config.js
-* les users ont accès à leur page d'admin pour gérer leurs pass: https://postfixadmin.fdn.fr/users/login.php
+* postfixadmin.fdn.fr > Virtual List > Add mailbox
+* Vous ne pouvez intervenir que sur les domaines où vous êtes configurés comme administrateur
 
-## Création de boites email
+### Créer un alias
+
+* postfixadmin.fdn.fr > Virtual List > Add Alias 
+* Vous ne pouvez intervenir que sur les domaines où vous êtes configurés comme administrateur
+
+## **Utilisation par les membres**
+
+### Création de boites email
 
 les utilisateurs souhaitant une adresse email devront écrire à service@fdn.fr en fournissant:
 
@@ -65,9 +71,23 @@ les utilisateurs souhaitant une adresse email devront écrire à service@fdn.fr 
 * (facultatif) email de secours pour mot de passe oublié
 * le mot de passe temporaire sera: pseudo123 et le lien pour changer le mot de passe sera indiqué dans le welcome email envoyé lors de la création du compte
 
-Postmaster entre ces informations dans pfa>Virtual Liste>Add Mailbox
+### Configuration des boites emails
 
-## Création d'un MX secondaire
+#### Utilisation via le webmail:
+
+* https://webmail.fdn.fr (actif au 2021-03-01)
+
+#### Utilisation via logiciel de messagerie:
+
+* serveur IMAP : imap.fdn.fr
+* port IMAP: 143 STARTTLS
+* serveur SMTP (envoi) : smtp.fdn.fr
+* port SMTP 587 STARTTLS
+
+Si sous-domaine ou domaine extérieur:
+* Enregistrement MX: mx.fdn.fr
+
+### Création d'un MX secondaire
 
 Il est possible de configurer le serveur comme serveur MX secondaire.
 
@@ -77,22 +97,7 @@ Les utilisateurs envoie à services@fdn.fr avec:
 Il faudra faire pointer le MX secondaire sur:
 * mx.fdn.fr
 
-Postmaster entre ces informations dans Domain List>New Domain:
-* Dans la desctiption mettre backup_NomDomaine
-* Mettre -1 dans tous les champs
-* Cocher MX Backup
-
-## Créations des boites mails par liste
-
-Lancer le script create_user_bulk.sh avec en arguments:
-1. le fichier ou se trouve la liste des users: un login par ligne
-2. le domaine des emails: domain.tld
-
-Les comptes sont alors tous créé avec le mot de passe temporaire: login123
-
-Le lien pour changer de mot de passe se trouve dans le welcome email.
-
-## Filtres niveau serveur
+### Filtres niveau serveur
 
 * Sieve a été activé sur le serveur pour permettre la mise en place de filtres directement au niveau du server. Accessible en TLS à travers le port 4190 sur mail_domain.tld
 * Il est possible de gérer les filtres via l'interface web: webmail.fdn.fr

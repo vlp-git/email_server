@@ -6,7 +6,7 @@
 * spam: postscreen + rspamd
 * filters: sieve
 * database: mariadb
-* GUI mail manager: postfixadmin (pa)
+* GUI mail manager: postfixadmin (pfa)
 * webmail: rainloop
 
 ## Administration

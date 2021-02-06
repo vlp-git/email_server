@@ -1,6 +1,6 @@
 # Serveur email FDN 2020
 
-##i# Structure
+### Structure
 * MTA: postifx
 * IMAP: dovecot
 * spam: postscreen + rspamd

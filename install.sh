@@ -921,7 +921,7 @@ echo "Bienvenue dans le programme d'installation de votre serveur mail"
 echo "                      *-__fdn 2020__-*"
 echo
 echo "Retrouvez toutes les informations sur le script et son installation:"
-echo "https://framagit.org/vlp/mail-server-installation-script"
+echo "https://git.fdn.fr/adminsys/new_mail_server"
 echo
 echo ">>>>  1- Installation du serveur email - étape #1"
 echo ">>>>  2- Installation du serveur web - étape #2"

@@ -11,7 +11,7 @@
 
 ## Administration
 
-### Installation
+### Installation du serveur
 
 * Les scripts doivent tourner en root: soit passer en root: `sudo -i`, soit lancer sudo ./install - Dans les 2 cas, les 2 scripts doivent être déployés sous le même user
 * `git clone git@git.fdn.fr:adminsys/new_fdn_emails.git`
@@ -19,8 +19,19 @@
 * ./install.sh
 * Choisir, en fonction de la VM, l'installation serveur email ou du serveur web
 * Le serveur email devra être installé avant le serveur web
+* le script est fait pour une architecture ayant 2 VM avec chacune leur ip publique: une install de 2 VM derrière un reverse ou même sur une seule machine peut être adapté sans trop de changement dans le code
 
-### Configurer un nouveau domaine un nouveau sous-domain ou domaine extérieur:
+### Créer une nouvelle adresse mail
+
+* postfixadmin.fdn.fr > Virtual List > Add mailbox
+* Vous ne pouvez intervenir que sur les domaines où vous êtes configurés comme administrateur
+
+### Créer un alias
+
+* postfixadmin.fdn.fr > Virtual List > Add Alias 
+* Vous ne pouvez intervenir que sur les domaines où vous êtes configurés comme administrateur
+
+### Configurer un nouveau sous-domain ou domaine extérieur:
 
 #### Créer le domaine dans postfix admin
  * postfixadmin.fdn.fr > new domaine
@@ -31,6 +42,9 @@
   * Domain Quota: 20480
 
 #### Générer les clefs DKIM
+
+#### En automatique avec le script /scripts/rspamd_new_domaine.sh
+`sudo chemin_du_repo/scripts/rspamd_new_domaine.sh mon_domaine.fdn.fr`
 
 #### A la main: 
 1. Ajouter domaine et selector dans dans /etc/rspamd/dkim_selectors.map
@@ -45,28 +59,12 @@
 5. chown _rspamd /var/lib/rspamd/dkim/*
 6. systemctl restart rspamd
 
-
-#### En automatique avec le script /scripts/rspamd_new_domaine.sh
-
-`sudo chemin_du_repo/scripts/rspamd_new_domaine.sh mon_domaine.fdn.fr`
-
 #### Entrées DNS à ajouter:
 
 						IN	MX 10	mx.fdn.fr.
 						IN  	TXT     "v=spf1 ip4:80.67.169.77 ip6:2001:910:800::77 mx -all"
 			_dmarc			IN 	TXT 	"v=DMARC1; p=none; rua=mailto:postmaster@myDomaine.fdn.fr; ruf=mailto:postmaster@myDomaine.fdn.fr"
 			mySelector._domainkey 	IN 	TXT 	( "v=DKIM1; k=rsa; "mypublickey_a_retrouver_dans_var_lib_rspamd_dkim") ;
-
-
-### Créer une nouvelle adresse mail
-
-* postfixadmin.fdn.fr > Virtual List > Add mailbox
-* Vous ne pouvez intervenir que sur les domaines où vous êtes configurés comme administrateur
-
-### Créer un alias
-
-* postfixadmin.fdn.fr > Virtual List > Add Alias 
-* Vous ne pouvez intervenir que sur les domaines où vous êtes configurés comme administrateur
 
 ## **Utilisation par les membres**
 
@@ -103,6 +101,13 @@ Les utilisateurs envoie à services@fdn.fr avec:
 
 Il faudra faire pointer le MX secondaire sur:
 * mx.fdn.fr
+
+### Fonctionnement en relay smtp
+
+Il est possible d'utiliser notre serveur en relay smtp:
+
+Les utilisateurs envoie à services@fdn.fr avec:
+* le domaine du mail
 
 ### Filtres niveau serveur
 
@@ -164,9 +169,7 @@ Une confirmation d'installation sera demandée pour le lancement des différents
 
 Les applications installées proviennent des dépots Buster.
 
-Cependant, pour rainloop des bugs sont présents et patch a été développé:
-
-* Rainloop: connexion TLS aux bases de données
+Cependant, pour rainloop un patch a été développé pour ajouter la connexion à une db en TLS:
 
 ### Nous retrouver:
 

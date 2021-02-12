@@ -31,6 +31,8 @@
   * Domain Quota: 20480
 
 #### Générer les clefs DKIM
+
+#### A la main: 
 1. Ajouter domaine et selector dans dans /etc/rspamd/dkim_selectors.map
   * Format: "[domaine] [selector]"
   * Par default: mettre "fdn" pour le selector
@@ -42,6 +44,11 @@
 4. chmod u=rw,g=r,o= /var/lib/rspamd/dkim/*
 5. chown _rspamd /var/lib/rspamd/dkim/*
 6. systemctl restart rspamd
+
+
+#### En automatique avec le script /scripts/rspamd_new_domaine.sh
+
+`sudo chemin_du_repo/scripts/rspamd_new_domaine.sh mon_domaine.fdn.fr`
 
 #### Entrées DNS à ajouter:
 

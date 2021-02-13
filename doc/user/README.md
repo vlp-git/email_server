@@ -19,8 +19,10 @@ Les utilisateurs souhaitant une adresse email devront écrire à service@fdn.fr 
 
 * pseudo: utilisé pour pseudo@fdn.fr
 * (facultatif) email de secours pour mot de passe oublié
+
+Vous recevrez alors
 * le mot de passe temporaire sera communiqué par les adminsys
-* une fois validé par les admins, vous aurez accès à https://postfixadmin.fdn.fr/users/
+* un accès à https://postfixadmin.fdn.fr/users/
   * Vous pourrez changer votre mot de passe
   * Mettre en place un forward de votre email sur un autre email
 
@@ -61,8 +63,15 @@ Il faudra faire pointer le MX secondaire sur:
 Il est possible d'utiliser notre serveur en relay smtp:
 
 Les utilisateurs envoie à services@fdn.fr avec:
-* le domaine du mail
-* Il faudra de votre côté mettre à jour les champs DNS: MX + SPF + DKIM + DMARC qui seront fourni par un adminsys
+* le domaine extérieur ou sous domaine fdn du mail
+* le login de votre choix pour l'auth
+
+ Vous recevrez alors:
+* un mot de pass temporaire
+* un accès à https://postfixadmin.fdn.fr/users/ pour changer votre pass
+* Il faudra de votre côté mettre à jour les champs DNS: SPF + DKIM + DMARC qui seront fourni par un adminsys (ce sera important pour la bonne réception de votre email et pour la réputation du server FDN)
+
+**La nouvelle infra ne fait plus OPEN Relay pour des raisons de sécurité et de réputation de server. L'ancienne infra smtp-old.fdn.fr peut continuer temporairement à faire de l'open relay mais il est conseillé de passer en auth relay**
 
 ### Filtres niveau serveur
 

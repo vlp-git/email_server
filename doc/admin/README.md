@@ -75,7 +75,7 @@ Le serveur SMTP est ouvert pour les IP FDN
  * Adhérents VPN
  * Adhérents utilisant un sous-domaine pour héberger son serveur mail
 
-* Pour les IP extérieurs, les adhérents devront s'auth
+Pour les IP extérieurs, les adhérents devront s'auth
  * La méthode est la même que pour un domaine extérieur avec des quotas arbitrairement très faible car non utilisé
  * Un relay smtp était pour notre infra un domaine extérieur sur lequel ne pointe pas les MX
  * Il faut juste créer dans ce nouveau domaine: un compte email qui servira d'auth smtp

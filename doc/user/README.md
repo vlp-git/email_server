@@ -32,9 +32,9 @@ Vous recevrez alors
 * Vous recevrez ensuite un accès à l'interface https://postfixadmin.fdn.fr pour gérer les emails/alias de votre domaine.
 * Il faudra ensuite mettre à jour votre entrée MX
 
-___ Il est possible pour fdn d'ajouter à vos emails sortant une clef DKIM, il faudra nous faire la demande au moment de votre demande de service.
+*Il est possible pour fdn d'ajouter à vos emails sortant une clef DKIM, il faudra nous faire la demande au moment de votre demande de service.
 
-La réputation du serveur FDN dépend de l'utilsation de chacun, nous vous conseillerons vivement de mettre en place DKIM + SPF + DMARC. Celà va non seulement influencer notre réputation mais aussi assurera la bonne réception de vos emails.___
+La réputation du serveur FDN dépend de l'utilsation de chacun, nous vous conseillerons vivement de mettre en place DKIM + SPF + DMARC. Celà va non seulement influencer notre réputation mais aussi assurera la bonne réception de vos emails.*
 
 ### Configuration des boites emails
 
@@ -82,10 +82,10 @@ Enfin, nous avons aussi la possibilité d'ajouter une signature DKIM pour votre 
 * Il faudra envoyer un email à services@fdn.fr pour nous demander de créer votre clef
 * Nous vous renverrons votre clefs publique à ajouter dans vos DNS
 
-___Il est possible pour fdn d'ajouter à vos emails sortant une clef DKIM, il faudra nous faire la demande au moment de votre demande de service.
+*Il est possible pour fdn d'ajouter à vos emails sortant une clef DKIM, il faudra nous faire la demande au moment de votre demande de service.
 
 La réputation du serveur FDN dépend de l'utilsation de chacun, nous vous conseillerons vivement de mettre en place DKIM + SPF + DMARC. Celà va non seulement influencer notre réputation mais aussi assurera la bon
-ne réception de vos emails.___
+ne réception de vos emails.*
 
 ### Filtres niveau serveur
 

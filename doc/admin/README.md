@@ -70,7 +70,7 @@
 
 ### Mettre en place un relai smtp
 
-* Le serveur SMTP est ouvert pour les IP FDN
+Le serveur SMTP est ouvert pour les IP FDN
  * Adhérents DSL
  * Adhérents VPN
  * Adhérents utilisant un sous-domaine pour héberger son serveur mail
@@ -80,7 +80,7 @@
  * Un relay smtp était pour notre infra un domaine extérieur sur lequel ne pointe pas les MX
  * Il faut juste créer dans ce nouveau domaine: un compte email qui servira d'auth smtp
 
-Il est possible en plus de proposer d'ajouter une signature DKIM aux emails des adhérents 
+Il est possible en plus de proposer d'ajouter une signature DKIM aux emails des adhérents: il faudra reprendre la procédure du haut: `sudo chemin_du_repo/scripts/rspamd_new_domaine.sh mon_domaine.fdn.fr` 
 
 ## API
 

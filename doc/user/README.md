@@ -62,16 +62,22 @@ Il faudra faire pointer le MX secondaire sur:
 
 Il est possible d'utiliser notre serveur en relay smtp:
 
-Les utilisateurs envoie à services@fdn.fr avec:
-* le domaine extérieur ou sous domaine fdn du mail
-* le login de votre choix pour l'auth
+Pour les IP FDN, le serveur est ouvert
 
- Vous recevrez alors:
+Pour les utilisateurs de domaines extérieurs, vous avez besoin de vous auth sur le serveur:
+
+Il faudra envoyer un email à services@fdn.fr avec:
+* le mail qui sera utilisé
+
+Vous recevrez alors:
 * un mot de pass temporaire
 * un accès à https://postfixadmin.fdn.fr/users/ pour changer votre pass
-* Il faudra de votre côté mettre à jour les champs DNS: SPF + DKIM + DMARC qui seront fourni par un adminsys (ce sera important pour la bonne réception de votre email et pour la réputation du server FDN)
 
-**La nouvelle infra ne fait plus OPEN Relay pour des raisons de sécurité et de réputation de server. L'ancienne infra smtp-old.fdn.fr peut continuer temporairement à faire de l'open relay mais il est conseillé de passer en auth relay**
+Enfin, nous avons aussi la possibilité d'ajouter une signature DKIM pour votre domaine lors de l'envoie d'email:
+
+* Il faudra envoyer un email à services@fdn.fr pour nous demander de créer votre clef
+* Nous vous renverrons votre clefs publique à ajouter dans vos DNS
+
 
 ### Filtres niveau serveur
 

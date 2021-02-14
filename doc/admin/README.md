@@ -70,12 +70,17 @@
 
 ### Mettre en place un relai smtp
 
-* La méthode est la même que pour un domaine extérieur avec des quotas arbitrairement très faible car non utilisé
-* Un relay smtp était pour notre infra un domaine extérieur sur lequel ne pointe pas les MX
-* Il faut juste créer dans ce nouveau domaine: un compte email qui servira d'auth smtp
-* bien penser à générer les clefs DKIM
+* Le serveur SMTP est ouvert pour les IP FDN
+ * Adhérents DSL
+ * Adhérents VPN
+ * Adhérents utilisant un sous-domaine pour héberger son serveur mail
 
-**La nouvelle infra ne fait plus OPEN Relay pour des raisons de sécurité et de réputation de server. Les adhérent auront toujours besoin d'une auth. L'ancienne infra smtp-old.fdn.fr peut continuer à faire open relay mais il est conseillé de passer en auth relay**
+* Pour les IP extérieurs, les adhérents devront s'auth
+ * La méthode est la même que pour un domaine extérieur avec des quotas arbitrairement très faible car non utilisé
+ * Un relay smtp était pour notre infra un domaine extérieur sur lequel ne pointe pas les MX
+ * Il faut juste créer dans ce nouveau domaine: un compte email qui servira d'auth smtp
+
+Il est possible en plus de proposer d'ajouter une signature DKIM aux emails des adhérents 
 
 ## API
 

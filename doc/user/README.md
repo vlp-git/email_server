@@ -28,9 +28,13 @@ Vous recevrez alors
 
 #### mail @sous_domaine.fdn.fr ou @domaine_extérieur.fr
 
-* Les utilisateurs peuvent avoir accès à un sous domaine ou domaine extérieur, il faudra fournir le sous-domaine souhaité ou le domaine extérieur à gérer
+* Les utilisateurs peuvent avoir accès à la gestion d'un sous-domaine mail ou à la gestion d'un domaine mail extérieur, il faudra fournir le sous-domaine souhaité ou le domaine extérieur à gérer
 * Vous recevrez ensuite un accès à l'interface https://postfixadmin.fdn.fr pour gérer les emails/alias de votre domaine.
-* Il faudra de votre côté mettre à jour les champs DNS: MX + SPF + DKIM + DMARC qui seront fourni par un adminsys
+* Il faudra ensuite mettre à jour votre entrée MX
+
+*** Il est possible pour fdn d'ajouter à vos emails sortant une clef DKIM, il faudra nous faire la demande au moment de votre demande de service.
+
+La réputation du serveur FDN dépend de l'utilsation de chacun, nous vous conseillerons vivement de mettre en place DKIM + SPF + DMARC. Celà va non seulement influencer notre réputation mais aussi assurera la bonne réception de vos emails.***
 
 ### Configuration des boites emails
 
@@ -78,6 +82,10 @@ Enfin, nous avons aussi la possibilité d'ajouter une signature DKIM pour votre 
 * Il faudra envoyer un email à services@fdn.fr pour nous demander de créer votre clef
 * Nous vous renverrons votre clefs publique à ajouter dans vos DNS
 
+***Il est possible pour fdn d'ajouter à vos emails sortant une clef DKIM, il faudra nous faire la demande au moment de votre demande de service.
+
+La réputation du serveur FDN dépend de l'utilsation de chacun, nous vous conseillerons vivement de mettre en place DKIM + SPF + DMARC. Celà va non seulement influencer notre réputation mais aussi assurera la bon
+ne réception de vos emails.***
 
 ### Filtres niveau serveur
 

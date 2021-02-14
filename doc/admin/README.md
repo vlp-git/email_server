@@ -77,10 +77,10 @@ Le serveur SMTP est ouvert pour les IP FDN
 
 Pour les IP extérieurs, les adhérents devront s'auth
  * La méthode est la même que pour un domaine extérieur avec des quotas arbitrairement très faible car non utilisé
- * Un relay smtp était pour notre infra un domaine extérieur sur lequel ne pointe pas les MX
+ * Un relay smtp étant pour notre infra un domaine extérieur sur lequel ne pointe pas les MX
  * Il faut juste créer dans ce nouveau domaine: un compte email qui servira d'auth smtp
 
-Il est possible en plus de proposer d'ajouter une signature DKIM aux emails des adhérents: il faudra reprendre la procédure du haut: `sudo chemin_du_repo/scripts/rspamd_new_domaine.sh mon_domaine.fdn.fr` 
+Il est possible en plus de proposer d'ajouter une signature DKIM aux emails de l'adhérent: il faudra reprendre la procédure du haut: `sudo chemin_du_repo/scripts/rspamd_new_domaine.sh mon_domaine.fdn.fr` 
 
 ## API
 

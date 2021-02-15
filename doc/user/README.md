@@ -54,6 +54,7 @@ Si sous-domaine ou domaine extérieur:
 ### Création d'un MX secondaire
 
 Il est possible de configurer le serveur comme serveur MX secondaire.
+Nous conservons les emails en queue durant 21j.
 
 Les utilisateurs envoie à services@fdn.fr avec:
 * le domaine du mail

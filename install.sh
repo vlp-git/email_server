@@ -501,7 +501,7 @@ F_mail_postfix() {
 	postconf -e "postscreen_bare_newline_enable = yes"
 	postconf -e "postscreen_bare_newline_action = enforce"
 	cp ./postfix/postscreen_access.cidr /etc/postfix/
-	#### Clean header
+	#### Clean header: possibilité de clean tous les headers des emails: non activé sur infra fdn
 	cleanheader="/etc/postfix/header_checks"
 	if [ -f "$cleanheader" ]; then rm -f "$cleanheader"; fi
 	touch "$cleanheader"

@@ -459,7 +459,7 @@ F_mail_postfix() {
 	postconf -e "smtpd_sasl_local_domain = \$mydomain"
 	postconf -e "broken_sasl_auth_clients = yes"
 	#### SMTPD Niveau de sécurité
-	postconf -e "smtpd_tls_session_cache_database = btree:${data_directory}/smtp_scache" #On met en cache les sessions (utile pour les gros google/outlook/orange...)
+	postconf -e "smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache" #On met en cache les sessions (utile pour les gros google/outlook/orange...)
 	postconf -e "smtpd_tls_auth_only = yes"#On ne veut uniquement des connexions pour lesquels il y a un certificat valide
 	postconf -e "smtpd_tls_security_level = may"
 	postconf -e "smtpd_tls_protocols = TLSv1.3, TLSv1.2, !TLSv1.1, !TLSv1, !SSLv2, !SSLv3"#Les protocoles que l'on accepte d'utiliser sont uniquement 1.2 et 1.3

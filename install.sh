@@ -445,6 +445,7 @@ F_mail_postfix() {
 	postconf -e "smtp_tls_mandatory_protocols = !SSLv2, !SSLv3, !TLSv1, !TLSv1.1"
 	#### SMTPD global
 	postconf -e "smtpd_tls_loglevel = 1"
+	postconf -e "recipient_delimiter = +"
 	#### SMTPD Confie l auth a dovecot
 	postconf -e "smtpd_sasl_type = dovecot"
 	postconf -e "smtpd_sasl_path = private/auth"

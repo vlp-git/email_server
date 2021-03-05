@@ -441,8 +441,13 @@ F_mail_postfix() {
 	#### SMTP global
 	postconf -e "smtp_tls_loglevel = 1"
 	#### SMTP Niveau de sécurité
+	postconf -e "smtp_tls_session_cache_database = btree:${data_directory}/smtpd_scache" #On met en cache les sessions (utile pour les gros google/outlook/orange...)
+	postconf -e "smtp_tls_auth_only = yes"#On ne veut uniquement des connexions pour lesquels il y a un certificat valide
 	postconf -e "smtp_tls_security_level = may"
-	postconf -e "smtp_tls_mandatory_protocols = !SSLv2, !SSLv3, !TLSv1, !TLSv1.1"
+	postconf -e "smtp_tls_protocols = TLSv1.3, TLSv1.2, TLSv1.1, !TLSv1, !SSLv2, !SSLv3"#Les protocoles que l'on accepte d'utiliser en tant que client(1.1,1.2,1.3)
+	postconf -e "smtp_tls_ciphers = high"#On veut que de la haute sécurité
+	postconf -e "smtp_tls_mandatory_ciphers = high"#On négocie que de la haute sécurité
+	postconf -e "smtp_tls_mandatory_protocols = TLSv1.3, TLSv1.2, !SSLv2, !SSLv3, !TLSv1, !TLSv1.1"#On négocie uniquement 1.2 et 1.3
 	#### SMTPD global
 	postconf -e "smtpd_tls_loglevel = 1"
 	postconf -e "recipient_delimiter = +"
@@ -453,9 +458,17 @@ F_mail_postfix() {
 	postconf -e "smtpd_sasl_local_domain = \$mydomain"
 	postconf -e "broken_sasl_auth_clients = yes"
 	#### SMTPD Niveau de sécurité
+	postconf -e "smtpd_tls_auth_only = yes"#On ne veut uniquement des connexions pour lesquels il y a un certificat valide
 	postconf -e "smtpd_tls_security_level = may"
-	postconf -e "smtpd_tls_mandatory_protocols = !SSLv2, !SSLv3, !TLSv1, !TLSv1.1"
+	postconf -e "smtpd_tls_protocols = TLSv1.3, TLSv1.2, TLSv1.1, !TLSv1, !SSLv2, !SSLv3"#Les protocoles que l'on accepte d'utiliser sont uniquement 1.2 et 1.3 (et 1.1)
+	postconf -e "smtpd_tls_ciphers = high"#On veut que de la haute sécurité
+	postconf -e "smtpd_tls_mandatory_ciphers = high"#On négocie que de la haute sécurité
+	postconf -e "smtpd_tls_exclude_ciphers = MD5, DES, ADH, RC4, PSD, SRP, 3DES, eNULL, aNULL"# On les exclue également de l'utilisation
+	postconf -e "smtpd_tls_mandatory_protocols = TLSv1.3, TLSv1.2, !SSLv2, !SSLv3, !TLSv1, !TLSv1.1"#On négocie uniquement 1.2 et 1.3 (on propose pas 1.1, on l'utilise seulement si pas le choix)
 	postconf -e "smtpd_tls_received_header = yes"
+	#### Autre config de sécurité
+	postconf -e "tls_eecdh_strong_curve = secp384r1"#Si utilisation d'une courbe elliptique pour l'échange de clé, alors utiliser une courbe elliptique forte, accepté par tous les clients
+	postconf -e "tls_ssl_options = NO_COMPRESSION"#Desactiver la compression TLS qui connait des faille de sécu.
 	#### SMTPD Mise en place des clefs et certificats
 	if [ "$mail_cert_scenario" == "1" ] || [ "$mail_cert_scenario" == "3" ]; then
 		postconf -e "smtpd_tls_cert_file = $mail_fullchain"
@@ -465,8 +478,8 @@ F_mail_postfix() {
 	postconf -e "smtpd_tls_key_file = $mail_key"
 	postconf -e "smtpd_tls_dh1024_param_file = $mail_dh"
 	#### Cipher list 
-	postconf -e "tls_preempt_cipherlist = yes"
-	postconf -e "tls_high_cipherlist = ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-RSA-AES256-GCM-SHA384"
+	postconf -e "tls_preempt_cipherlist = yes"# <-mais l'option était déjà présente du coup, vous forcer déjà la main des clients
+	postconf -e "tls_high_cipherlist = ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!DSS:!RC4:!SEED:!SHA1"#J'ai gardé la configuration précédente avec l'interdiction absolue des protocoles faible/null
 	#### Activer config virtuelles
 	postconf -e "virtual_mailbox_domains = mysql:/etc/postfix/mysql-virtual-mailbox-domains.cf"
 	postconf -e "virtual_mailbox_maps = mysql:/etc/postfix/mysql-virtual-mailbox-maps.cf"

@@ -445,7 +445,7 @@ F_mail_postfix() {
 	postconf -e "smtp_tls_auth_only = yes"
 	postconf -e "smtp_tls_security_level = may"
 	postconf -e "smtp_tls_protocols = TLSv1.3, TLSv1.2, TLSv1.1, !TLSv1, !SSLv2, !SSLv3"
-	postconf -e "smtp_tls_ciphers = high"
+	postconf -e "smtp_tls_mandatory_ciphers = medium"
 	postconf -e "smtp_tls_mandatory_protocols = TLSv1.3, TLSv1.2, !SSLv2, !SSLv3, !TLSv1, !TLSv1.1"
 	#### SMTPD global
 	postconf -e "smtpd_tls_loglevel = 1"
@@ -460,7 +460,7 @@ F_mail_postfix() {
 	postconf -e "smtpd_tls_auth_only = yes"
 	postconf -e "smtpd_tls_security_level = may"
 	postconf -e "smtpd_tls_protocols = TLSv1.3, TLSv1.2, TLSv1.1, !TLSv1, !SSLv2, !SSLv3"
-	postconf -e "smtpd_tls_mandatory_ciphers = high"
+	postconf -e "smtpd_tls_mandatory_ciphers = medium"
 	postconf -e "smtpd_tls_exclude_ciphers = MD5, DES, ADH, RC4, PSD, SRP, 3DES, eNULL, aNULL"
 	postconf -e "smtpd_tls_mandatory_protocols = TLSv1.3, TLSv1.2, !SSLv2, !SSLv3, !TLSv1, !TLSv1.1"
 	postconf -e "smtpd_tls_received_header = yes"

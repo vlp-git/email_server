@@ -471,6 +471,7 @@ F_mail_postfix() {
 	postconf -e "virtual_mailbox_domains = mysql:/etc/postfix/mysql-virtual-mailbox-domains.cf"
 	postconf -e "virtual_mailbox_maps = mysql:/etc/postfix/mysql-virtual-mailbox-maps.cf"
 	postconf -e "virtual_alias_maps = mysql:/etc/postfix/mysql-virtual-alias-maps.cf"
+	postconf -e "relay_domains = proxy:mysql:/etc/postfix/mysql_relay_domains_maps.cf"
 	postconf -e "virtual_transport = lmtp:unix:private/dovecot-lmtp"
 	#### Configuration des restriction
 	# ALL COMMAND
@@ -521,12 +522,13 @@ F_mail_postfix() {
 	postconf -e "milter_mail_macros = i {mail_addr} {client_addr} {client_name} {auth_authen}"
 	#### Initialisation des accès à la base SQL
 	F_recreate_file "/etc/postfix/mysql-virtual-mailbox-domains.cf"
-	echo -e "user = $db_p_user\npassword = $db_p_passwd\nhosts = 127.0.0.1\ndbname = postfix\nquery = SELECT 1 FROM domain WHERE domain='%s'" >> /etc/postfix/mysql-virtual-mailbox-domains.cf
+	echo -e "user = $db_p_user\npassword = $db_p_passwd\nhosts = 127.0.0.1\ndbname = postfix\nquery = SELECT 1 FROM domain WHERE domain='%s' AND backupmx = '0' AND active = '1'" >> /etc/postfix/mysql-virtual-mailbox-domains.cf
 	F_recreate_file "/etc/postfix/mysql-virtual-mailbox-maps.cf"
 	echo -e "user = $db_p_user\npassword = $db_p_passwd\nhosts = 127.0.0.1\ndbname = postfix\nquery = SELECT 1 FROM mailbox WHERE username='%s'" >> /etc/postfix/mysql-virtual-mailbox-maps.cf
 	F_recreate_file "/etc/postfix/mysql-virtual-alias-maps.cf"
 	echo -e "user = $db_p_user\npassword = $db_p_passwd\nhosts = 127.0.0.1\ndbname = postfix\nquery = SELECT goto FROM alias WHERE address='%s'" >> /etc/postfix/mysql-virtual-alias-maps.cf
-	chgrp postfix /etc/postfix/mysql-*.cf
+	F_recreate_file "/etc/postfix/mysql_relay_domains_maps.cf"
+	echo -e "user = $db_p_user\npassword = $db_p_passwd\nhosts = 127.0.0.1\ndbname = postfix\nquery = SELECT domain FROM domain WHERE domain='%s' AND backupmx ='1'" >> /etc/postfix/mysql-virtual-alias-maps.cf chgrp postfix /etc/postfix/mysql-*.cf
 	chmod 640 /etc/postfix/mysql-*.cf
 	############ saslauthd
 	sed -i "s@^START=.*@START=yes@g" "/etc/default/saslauthd"

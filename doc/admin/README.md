@@ -22,6 +22,7 @@
 ### Créer une nouvelle adresse mail fdn
 
 * postfixadmin.fdn.fr > Virtual List > Add mailbox
+* dans le champs Nom, indiquer: prénom NOM (numéro adhérent)
 * selectionner le domaine fdn.fr
 
 ### Créer un alias fdn

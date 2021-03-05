@@ -446,7 +446,6 @@ F_mail_postfix() {
 	postconf -e "smtp_tls_security_level = may"
 	postconf -e "smtp_tls_protocols = TLSv1.3, TLSv1.2, TLSv1.1, !TLSv1, !SSLv2, !SSLv3"
 	postconf -e "smtp_tls_ciphers = high"
-	postconf -e "smtp_tls_mandatory_ciphers = high"
 	postconf -e "smtp_tls_mandatory_protocols = TLSv1.3, TLSv1.2, !SSLv2, !SSLv3, !TLSv1, !TLSv1.1"
 	#### SMTPD global
 	postconf -e "smtpd_tls_loglevel = 1"
@@ -461,7 +460,6 @@ F_mail_postfix() {
 	postconf -e "smtpd_tls_auth_only = yes"
 	postconf -e "smtpd_tls_security_level = may"
 	postconf -e "smtpd_tls_protocols = TLSv1.3, TLSv1.2, TLSv1.1, !TLSv1, !SSLv2, !SSLv3"
-	postconf -e "smtpd_tls_ciphers = high"
 	postconf -e "smtpd_tls_mandatory_ciphers = high"
 	postconf -e "smtpd_tls_exclude_ciphers = MD5, DES, ADH, RC4, PSD, SRP, 3DES, eNULL, aNULL"
 	postconf -e "smtpd_tls_mandatory_protocols = TLSv1.3, TLSv1.2, !SSLv2, !SSLv3, !TLSv1, !TLSv1.1"
@@ -479,7 +477,7 @@ F_mail_postfix() {
 	postconf -e "smtpd_tls_dh1024_param_file = $mail_dh"
 	#### Cipher list 
 	postconf -e "tls_preempt_cipherlist = yes"
-	postconf -e "tls_high_cipherlist = ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!DSS:!RC4:!SEED:!SHA1"
+	postconf -e "tls_medium_cipherlist = ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!DSS:!RC4:!SEED:!SHA1"
 	#### Activer config virtuelles
 	postconf -e "virtual_mailbox_domains = mysql:/etc/postfix/mysql-virtual-mailbox-domains.cf"
 	postconf -e "virtual_mailbox_maps = mysql:/etc/postfix/mysql-virtual-mailbox-maps.cf"

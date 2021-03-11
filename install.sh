@@ -442,7 +442,6 @@ F_mail_postfix() {
 	postconf -e "smtp_tls_loglevel = 1"
 	#### SMTP Niveau de sécurité
 	postconf -e "smtp_tls_session_cache_database = btree:${data_directory}/smtpd_scache")
-	postconf -e "smtp_tls_auth_only = yes"
 	postconf -e "smtp_tls_security_level = may"
 	postconf -e "smtp_tls_protocols = TLSv1.3, TLSv1.2, TLSv1.1, !TLSv1, !SSLv2, !SSLv3"
 	postconf -e "smtp_tls_mandatory_ciphers = medium"
